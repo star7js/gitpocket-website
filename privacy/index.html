@@ -9,6 +9,12 @@
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://gitpocket.app/privacy/">
+
+  <!-- Preconnect Hints -->
+  <link rel="preconnect" href="https://vitals.vercel-insights.com">
+
   <link rel="stylesheet" href="../style.css">
 </head>
 <body>
@@ -19,13 +25,21 @@
 
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <header>
+  <nav class="site-nav" aria-label="Site navigation">
+    <a href="/" class="nav-logo">GitPocket</a>
+    <button class="theme-toggle" aria-label="Toggle theme">
+      <span class="theme-icon" aria-hidden="true">🌓</span>
+      <span class="theme-label">Theme</span>
+    </button>
+  </nav>
+
+  <header class="fade-in">
     <h1>Privacy Policy</h1>
     <p class="tagline">Last updated: January 31, 2026</p>
   </header>
 
   <main id="main-content" class="container">
-    <section class="content-section">
+    <section class="content-section reveal">
       <h2>Overview</h2>
       <p>
         GitPocket is committed to protecting your privacy. This policy explains what data we collect,
@@ -33,7 +47,7 @@
       </p>
     </section>
 
-    <section class="content-section">
+    <section class="content-section reveal">
       <h2>Data We Collect</h2>
 
       <h3>GitHub OAuth Token</h3>
@@ -64,7 +78,7 @@
       </p>
     </section>
 
-    <section class="content-section">
+    <section class="content-section reveal">
       <h2>Website Analytics</h2>
       <p>
         Our website (gitpocket.app) uses Vercel Analytics to collect anonymous usage data:
@@ -81,7 +95,7 @@
       </p>
     </section>
 
-    <section class="content-section">
+    <section class="content-section reveal">
       <h2>Data We Do NOT Collect</h2>
       <ul>
         <li><strong>No App Analytics:</strong> The iOS app does not collect any usage analytics or telemetry data</li>
@@ -92,7 +106,7 @@
       </ul>
     </section>
 
-    <section class="content-section">
+    <section class="content-section reveal">
       <h2>Third-Party Services</h2>
       <p>
         GitPocket uses the following third-party services:
@@ -105,7 +119,7 @@
       </ul>
     </section>
 
-    <section class="content-section">
+    <section class="content-section reveal">
       <h2>Data Retention</h2>
       <ul>
         <li><strong>OAuth Token:</strong> Retained until you sign out of the app</li>
@@ -114,7 +128,7 @@
       </ul>
     </section>
 
-    <section class="content-section">
+    <section class="content-section reveal">
       <h2>Your Rights</h2>
 
       <h3>GDPR (European Users)</h3>
@@ -134,7 +148,7 @@
       </ul>
     </section>
 
-    <section class="content-section">
+    <section class="content-section reveal">
       <h2>Data Security</h2>
       <p>
         We take security seriously:
@@ -147,7 +161,7 @@
       </ul>
     </section>
 
-    <section class="content-section">
+    <section class="content-section reveal">
       <h2>Children's Privacy</h2>
       <p>
         GitPocket is not directed to children under 13. We do not knowingly collect information
@@ -155,7 +169,7 @@
       </p>
     </section>
 
-    <section class="content-section">
+    <section class="content-section reveal">
       <h2>Changes to This Policy</h2>
       <p>
         We may update this privacy policy from time to time. We will notify you of any changes by
@@ -163,7 +177,7 @@
       </p>
     </section>
 
-    <section class="content-section">
+    <section class="content-section reveal">
       <h2>Contact Us</h2>
       <p>
         If you have questions about this privacy policy or your data, please contact us at:
@@ -182,5 +196,6 @@
     <p>&copy; 2026 GitPocket</p>
   </footer>
   <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="/js/main.js"></script>
 </body>
 </html>

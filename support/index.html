@@ -9,6 +9,12 @@
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://gitpocket.app/support/">
+
+  <!-- Preconnect Hints -->
+  <link rel="preconnect" href="https://vitals.vercel-insights.com">
+
   <link rel="stylesheet" href="../style.css">
 </head>
 <body>
@@ -19,13 +25,21 @@
 
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <header>
+  <nav class="site-nav" aria-label="Site navigation">
+    <a href="/" class="nav-logo">GitPocket</a>
+    <button class="theme-toggle" aria-label="Toggle theme">
+      <span class="theme-icon" aria-hidden="true">🌓</span>
+      <span class="theme-label">Theme</span>
+    </button>
+  </nav>
+
+  <header class="fade-in">
     <h1>Support</h1>
     <p class="tagline">Get help with GitPocket</p>
   </header>
 
   <main id="main-content" class="container">
-    <section class="content-section">
+    <section class="content-section reveal">
       <h2>Frequently Asked Questions</h2>
 
       <h3>How do I sign in?</h3>
@@ -72,7 +86,7 @@
       </p>
     </section>
 
-    <section class="content-section">
+    <section class="content-section reveal">
       <h2>Contact Support</h2>
       <p>
         Can't find an answer to your question? Need help with something specific?
@@ -86,7 +100,7 @@
       </p>
     </section>
 
-    <section class="content-section">
+    <section class="content-section reveal">
       <h2>Report a Bug</h2>
       <p>
         Found a bug? Please email us at <a href="mailto:support@gitpocket.app">support@gitpocket.app</a>
@@ -101,7 +115,7 @@
       </ul>
     </section>
 
-    <section class="content-section">
+    <section class="content-section reveal">
       <h2>Feature Requests</h2>
       <p>
         Have an idea for a new feature? We'd love to hear it! Send your suggestions to
@@ -109,7 +123,7 @@
       </p>
     </section>
 
-    <section class="content-section">
+    <section class="content-section reveal">
       <h2>App Information</h2>
       <p>
         <strong>Current Version:</strong> 1.0<br>
@@ -127,5 +141,6 @@
     <p>&copy; 2026 GitPocket</p>
   </footer>
   <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="/js/main.js"></script>
 </body>
 </html>
