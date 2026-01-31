@@ -54,7 +54,8 @@ body {
   background: var(--orb-blue);
   top: -100px;
   right: -100px;
-  animation: float 20s ease-in-out infinite;
+  animation: float 20s ease-in-out infinite, hue-shift 15s ease-in-out infinite;
+  transition: transform 0.3s ease-out;
 }
 
 .orb-2 {
@@ -63,7 +64,8 @@ body {
   background: var(--orb-purple);
   bottom: -100px;
   left: -100px;
-  animation: float 25s ease-in-out infinite reverse;
+  animation: float 25s ease-in-out infinite reverse, hue-shift 20s ease-in-out infinite reverse;
+  transition: transform 0.3s ease-out;
 }
 
 .orb-3 {
@@ -73,7 +75,8 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  animation: float 30s ease-in-out infinite;
+  animation: float 30s ease-in-out infinite, hue-shift 25s ease-in-out infinite;
+  transition: transform 0.3s ease-out;
 }
 
 @keyframes float {
@@ -85,6 +88,15 @@ body {
   }
   66% {
     transform: translate(-20px, 20px);
+  }
+}
+
+@keyframes hue-shift {
+  0%, 100% {
+    filter: blur(80px) hue-rotate(0deg);
+  }
+  50% {
+    filter: blur(80px) hue-rotate(30deg);
   }
 }
 
@@ -121,6 +133,17 @@ h1 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .tagline {
@@ -226,6 +249,27 @@ a:focus {
 .feature-icon {
   font-size: 36px;
   margin-bottom: 15px;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.feature:hover .feature-icon {
+  animation: wiggle 0.5s ease;
+}
+
+@keyframes wiggle {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
 }
 
 .feature h3 {
@@ -263,6 +307,16 @@ a:focus {
   filter: blur(20px);
   z-index: -1;
   transition: opacity 0.2s, filter 0.2s;
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 .app-store-button:hover {
@@ -272,13 +326,34 @@ a:focus {
 }
 
 .app-store-button:hover::before {
-  opacity: 0.5;
+  opacity: 0.6;
   filter: blur(30px);
+  animation: pulse-glow 1.5s ease-in-out infinite;
 }
 
 .app-store-button:focus {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+  animation: focus-ring 0.6s ease;
+}
+
+@keyframes focus-ring {
+  0% {
+    outline-offset: 2px;
+    outline-width: 2px;
+  }
+  50% {
+    outline-offset: 4px;
+    outline-width: 3px;
+  }
+  100% {
+    outline-offset: 2px;
+    outline-width: 2px;
+  }
+}
+
+.app-store-button:active {
+  transform: translateY(-2px) scale(0.98);
 }
 
 .app-store-button img {
@@ -367,6 +442,61 @@ footer {
   margin-top: 20px;
 }
 
+/* Scroll reveal animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 {
+  transition-delay: 0.1s;
+}
+
+.reveal-delay-2 {
+  transition-delay: 0.2s;
+}
+
+.reveal-delay-3 {
+  transition-delay: 0.3s;
+}
+
+/* Page entrance animations */
+.fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-delay-1 {
+  opacity: 0;
+  animation: fadeIn 0.8s ease-out 0.2s forwards;
+}
+
+.fade-in-delay-2 {
+  opacity: 0;
+  animation: fadeIn 0.8s ease-out 0.4s forwards;
+}
+
+.fade-in-delay-3 {
+  opacity: 0;
+  animation: fadeIn 0.8s ease-out 0.6s forwards;
+}
+
 /* Accessibility: Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -378,6 +508,20 @@ footer {
   }
 
   .orb {
+    animation: none !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .fade-in,
+  .fade-in-delay-1,
+  .fade-in-delay-2,
+  .fade-in-delay-3 {
+    opacity: 1;
     animation: none !important;
   }
 }

@@ -31,49 +31,49 @@
 
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <header>
+  <header class="fade-in">
     <div class="logo" aria-hidden="true">📱</div>
     <h1>GitPocket</h1>
-    <p class="tagline">GitHub in your pocket</p>
+    <p class="tagline fade-in-delay-1">GitHub in your pocket</p>
   </header>
 
   <main id="main-content" class="container">
     <section class="features">
       <h2 class="sr-only">Features</h2>
 
-      <div class="feature">
+      <div class="feature reveal">
         <div class="feature-icon" aria-hidden="true">📦</div>
         <h3>Browse Repositories</h3>
         <p>Access all your repositories, explore code, view commits, and track issues right from your iPhone.</p>
       </div>
 
-      <div class="feature">
+      <div class="feature reveal reveal-delay-1">
         <div class="feature-icon" aria-hidden="true">📝</div>
         <h3>Manage Gists</h3>
         <p>Create, edit, and share code snippets. Share Extension lets you create gists from any app.</p>
       </div>
 
-      <div class="feature">
+      <div class="feature reveal reveal-delay-2">
         <div class="feature-icon" aria-hidden="true">🚀</div>
         <h3>View Releases</h3>
         <p>Stay up to date with the latest releases from your favorite projects. Never miss an update.</p>
       </div>
 
-      <div class="feature">
+      <div class="feature reveal reveal-delay-3">
         <div class="feature-icon" aria-hidden="true">🔒</div>
         <h3>Secure & Private</h3>
         <p>Your GitHub token is stored securely in iOS Keychain. No analytics, no tracking, no data sharing.</p>
       </div>
     </section>
 
-    <section class="cta">
+    <section class="cta reveal">
       <a href="#" class="app-store-button">
         <img src="/app-store-badge.svg" alt="Download on the App Store" height="54">
       </a>
     </section>
   </main>
 
-  <footer>
+  <footer class="fade-in-delay-3">
     <nav class="footer-links" aria-label="Footer navigation">
       <a href="/privacy/">Privacy Policy</a>
       <a href="/support/">Support</a>
@@ -85,5 +85,95 @@
     <p>&copy; 2026 GitPocket</p>
   </footer>
   <script defer src="/_vercel/insights/script.js"></script>
+  <script>
+    // Intersection Observer for scroll-triggered animations
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      });
+
+      // Observe all elements with the reveal class
+      document.querySelectorAll('.reveal').forEach(el => {
+        observer.observe(el);
+      });
+    } else {
+      // Fallback for browsers without IntersectionObserver
+      document.querySelectorAll('.reveal').forEach(el => {
+        el.classList.add('visible');
+      });
+    }
+
+    // Parallax effect for background orbs on scroll
+    let ticking = false;
+    const orbs = document.querySelectorAll('.orb');
+
+    function updateParallax() {
+      const scrolled = window.scrollY;
+
+      orbs.forEach((orb, i) => {
+        const speed = 0.1 + (i * 0.05);
+        orb.style.transform = `translateY(${scrolled * speed}px)`;
+      });
+
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    });
+
+    // Cursor-reactive glow for orbs (desktop only)
+    if (window.matchMedia('(min-width: 768px)').matches) {
+      let mouseX = 0;
+      let mouseY = 0;
+      let currentX = 0;
+      let currentY = 0;
+
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      function animateOrbs() {
+        // Smooth lerp animation
+        currentX += (mouseX - currentX) * 0.05;
+        currentY += (mouseY - currentY) * 0.05;
+
+        orbs.forEach((orb, i) => {
+          const rect = orb.getBoundingClientRect();
+          const orbCenterX = rect.left + rect.width / 2;
+          const orbCenterY = rect.top + rect.height / 2;
+
+          const deltaX = currentX - orbCenterX;
+          const deltaY = currentY - orbCenterY;
+
+          const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+          const maxDistance = 500;
+
+          if (distance < maxDistance) {
+            const strength = (1 - distance / maxDistance) * 20;
+            const moveX = (deltaX / distance) * strength;
+            const moveY = (deltaY / distance) * strength;
+
+            orb.style.transform = `translate(${moveX}px, ${moveY}px)`;
+          }
+        });
+
+        requestAnimationFrame(animateOrbs);
+      }
+
+      animateOrbs();
+    }
+  </script>
 </body>
 </html>
