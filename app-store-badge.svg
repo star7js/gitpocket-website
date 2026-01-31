@@ -1,0 +1,20 @@
+<svg width="120" height="40" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+  <title>Download on the App Store</title>
+
+  <!-- Background -->
+  <rect width="120" height="40" rx="5" fill="#000000"/>
+
+  <!-- Apple Logo -->
+  <g transform="translate(13, 10)">
+    <path d="M13.482 8.948c-.867 0-2.113-.863-3.476-.815-1.791.024-3.441 1.048-4.356 2.66-1.864 3.246-.479 8.042 1.337 10.677.887 1.288 1.943 2.732 3.33 2.684 1.339-.047 1.839-.863 3.453-.863 1.614 0 2.067.863 3.476.839 1.434-.024 2.372-1.312 3.259-2.612.999-1.48 1.41-2.912 1.434-2.984-.024-.024-2.755-1.072-2.779-4.249-.024-2.636 2.139-3.912 2.235-3.96-1.219-1.792-3.116-1.984-3.788-2.008-1.623-.12-3.065.96-3.884.96z M15.669 3.908c.743-.888 1.243-2.112 1.099-3.348-.96.048-2.163.648-2.87 1.44-.647.743-1.218 1.92-1.074 3.084 1.122.12 2.27-.552 2.87-1.176z" fill="#ffffff"/>
+  </g>
+
+  <!-- Text -->
+  <g fill="#ffffff">
+    <!-- "Download on the" text -->
+    <text x="35" y="13" font-family="-apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="8" font-weight="400">Download on the</text>
+
+    <!-- "App Store" text -->
+    <text x="35" y="27" font-family="-apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="600">App Store</text>
+  </g>
+</svg>

@@ -82,6 +82,35 @@ a:focus {
   outline-offset: 2px;
 }
 
+/* Accessibility: Skip link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--accent);
+  color: #fff;
+  padding: 8px 16px;
+  z-index: 100;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Accessibility: Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .features {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -124,25 +153,24 @@ a:focus {
 
 .app-store-button {
   display: inline-block;
-  background-color: var(--accent);
-  color: #fff;
-  padding: 15px 40px;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s, opacity 0.2s;
 }
 
 .app-store-button:hover {
-  background-color: #4A8FE7;
-  text-decoration: none;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(88, 166, 255, 0.3);
+  opacity: 0.9;
+  text-decoration: none;
 }
 
 .app-store-button:focus {
-  outline: 2px solid var(--accent-hover);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+.app-store-button img {
+  display: block;
+  height: 54px;
+  width: auto;
 }
 
 .content-section {
@@ -183,6 +211,17 @@ footer {
 .disclaimer {
   font-size: 0.9rem;
   margin-top: 20px;
+}
+
+/* Accessibility: Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* Mobile responsiveness */

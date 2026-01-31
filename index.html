@@ -24,49 +24,55 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <header>
-    <div class="logo">📱</div>
+    <div class="logo" aria-hidden="true">📱</div>
     <h1>GitPocket</h1>
     <p class="tagline">GitHub in your pocket</p>
   </header>
 
-  <main class="container">
+  <main id="main-content" class="container">
     <section class="features">
+      <h2 class="sr-only">Features</h2>
+
       <div class="feature">
-        <div class="feature-icon">📦</div>
+        <div class="feature-icon" aria-hidden="true">📦</div>
         <h3>Browse Repositories</h3>
         <p>Access all your repositories, explore code, view commits, and track issues right from your iPhone.</p>
       </div>
 
       <div class="feature">
-        <div class="feature-icon">📝</div>
+        <div class="feature-icon" aria-hidden="true">📝</div>
         <h3>Manage Gists</h3>
         <p>Create, edit, and share code snippets. Share Extension lets you create gists from any app.</p>
       </div>
 
       <div class="feature">
-        <div class="feature-icon">🚀</div>
+        <div class="feature-icon" aria-hidden="true">🚀</div>
         <h3>View Releases</h3>
         <p>Stay up to date with the latest releases from your favorite projects. Never miss an update.</p>
       </div>
 
       <div class="feature">
-        <div class="feature-icon">🔒</div>
+        <div class="feature-icon" aria-hidden="true">🔒</div>
         <h3>Secure & Private</h3>
         <p>Your GitHub token is stored securely in iOS Keychain. No analytics, no tracking, no data sharing.</p>
       </div>
     </section>
 
     <section class="cta">
-      <a href="#" class="app-store-button">Download on the App Store</a>
+      <a href="#" class="app-store-button">
+        <img src="/app-store-badge.svg" alt="Download on the App Store" height="54">
+      </a>
     </section>
   </main>
 
   <footer>
-    <div class="footer-links">
+    <nav class="footer-links" aria-label="Footer navigation">
       <a href="/privacy/">Privacy Policy</a>
       <a href="/support/">Support</a>
-    </div>
+    </nav>
     <p class="disclaimer">
       GitPocket is an independent third-party client for GitHub.<br>
       Not affiliated with or endorsed by GitHub, Inc.
