@@ -1,0 +1,25 @@
+name: Accessibility Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  a11y:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run accessibility tests
+        run: |
+          npm install -g pa11y-ci serve
+          serve . -l 3000 &
+          sleep 3
+          pa11y-ci http://localhost:3000 http://localhost:3000/privacy/ http://localhost:3000/support/
