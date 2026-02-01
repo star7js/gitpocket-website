@@ -635,6 +635,10 @@ footer {
   transition: transform 0.3s ease;
 }
 
+.theme-label {
+  display: none;
+}
+
 .theme-toggle:hover .theme-icon {
   transform: rotate(180deg);
 }
@@ -718,10 +722,6 @@ footer {
     right: 10px;
     padding: 6px 10px;
     font-size: 0.85rem;
-  }
-
-  .theme-label {
-    display: none;
   }
 
   .site-nav {
