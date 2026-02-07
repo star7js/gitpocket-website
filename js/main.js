@@ -44,6 +44,10 @@
     if (themeIcon) {
       themeIcon.textContent = icons[preference];
     }
+    if (themeToggle) {
+      const label = preference.charAt(0).toUpperCase() + preference.slice(1);
+      themeToggle.setAttribute('aria-label', `Theme: ${label}`);
+    }
   }
 
   // Initialize theme
@@ -60,7 +64,7 @@
   }
 
   // Listen for system theme changes (only affects system mode)
-  window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+  window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
     const preference = getPreferredTheme();
     if (preference === 'system') {
       applyTheme('system');
@@ -68,8 +72,10 @@
   });
 })();
 
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 // Intersection Observer for scroll-triggered animations
-if ('IntersectionObserver' in window) {
+if (!prefersReducedMotion && 'IntersectionObserver' in window) {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -86,73 +92,75 @@ if ('IntersectionObserver' in window) {
     observer.observe(el);
   });
 } else {
-  // Fallback for browsers without IntersectionObserver
+  // Reduced motion or fallback for browsers without IntersectionObserver
   document.querySelectorAll('.reveal').forEach(el => {
     el.classList.add('visible');
   });
 }
 
-// Parallax effect for background orbs on scroll
-let ticking = false;
-const orbs = document.querySelectorAll('.orb');
+if (!prefersReducedMotion) {
+  // Parallax effect for background orbs on scroll
+  let ticking = false;
+  const orbs = document.querySelectorAll('.orb');
 
-function updateParallax() {
-  const scrolled = window.scrollY;
-
-  orbs.forEach((orb, i) => {
-    const speed = 0.1 + (i * 0.05);
-    orb.style.transform = `translateY(${scrolled * speed}px)`;
-  });
-
-  ticking = false;
-}
-
-window.addEventListener('scroll', () => {
-  if (!ticking) {
-    window.requestAnimationFrame(updateParallax);
-    ticking = true;
-  }
-});
-
-// Cursor-reactive glow for orbs (desktop only)
-if (window.matchMedia('(min-width: 768px)').matches) {
-  let mouseX = 0;
-  let mouseY = 0;
-  let currentX = 0;
-  let currentY = 0;
-
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-  });
-
-  function animateOrbs() {
-    // Smooth lerp animation
-    currentX += (mouseX - currentX) * 0.05;
-    currentY += (mouseY - currentY) * 0.05;
+  function updateParallax() {
+    const scrolled = window.scrollY;
 
     orbs.forEach((orb, i) => {
-      const rect = orb.getBoundingClientRect();
-      const orbCenterX = rect.left + rect.width / 2;
-      const orbCenterY = rect.top + rect.height / 2;
-
-      const deltaX = currentX - orbCenterX;
-      const deltaY = currentY - orbCenterY;
-
-      const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-      const maxDistance = 500;
-
-      if (distance < maxDistance) {
-        const strength = (1 - distance / maxDistance) * 20;
-        const moveX = (deltaX / distance) * strength;
-        const moveY = (deltaY / distance) * strength;
-
-        orb.style.transform = `translate(${moveX}px, ${moveY}px)`;
-      }
+      const speed = 0.1 + (i * 0.05);
+      orb.style.transform = `translateY(${scrolled * speed}px)`;
     });
 
-    requestAnimationFrame(animateOrbs);
+    ticking = false;
   }
 
-  animateOrbs();
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateParallax);
+      ticking = true;
+    }
+  });
+
+  // Cursor-reactive glow for orbs (desktop only)
+  if (window.matchMedia('(min-width: 768px)').matches) {
+    let mouseX = 0;
+    let mouseY = 0;
+    let currentX = 0;
+    let currentY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    function animateOrbs() {
+      // Smooth lerp animation
+      currentX += (mouseX - currentX) * 0.05;
+      currentY += (mouseY - currentY) * 0.05;
+
+      orbs.forEach((orb, i) => {
+        const rect = orb.getBoundingClientRect();
+        const orbCenterX = rect.left + rect.width / 2;
+        const orbCenterY = rect.top + rect.height / 2;
+
+        const deltaX = currentX - orbCenterX;
+        const deltaY = currentY - orbCenterY;
+
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+        const maxDistance = 500;
+
+        if (distance < maxDistance) {
+          const strength = (1 - distance / maxDistance) * 20;
+          const moveX = (deltaX / distance) * strength;
+          const moveY = (deltaY / distance) * strength;
+
+          orb.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        }
+      });
+
+      requestAnimationFrame(animateOrbs);
+    }
+
+    animateOrbs();
+  }
 }

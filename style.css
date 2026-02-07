@@ -5,7 +5,7 @@
   --text-primary: #E6EDF3;
   --accent: #58A6FF;
   --accent-hover: #79C0FF;
-  --text-secondary: #8B949E;
+  --text-secondary: #A7B0BB;
   --border-color: #30363D;
 
   /* Glassmorphism variables */
@@ -132,6 +132,10 @@ footer {
   padding: 20px;
 }
 
+#main-content {
+  scroll-margin-top: 96px;
+}
+
 header {
   text-align: center;
   padding: 60px 20px 20px;
@@ -241,7 +245,7 @@ button:focus:not(:focus-visible) {
   background: var(--accent);
   color: #fff;
   padding: 8px 16px;
-  z-index: 100;
+  z-index: 1000;
   transition: top 0.2s;
   transform: translateY(-100%);
 }
@@ -340,6 +344,37 @@ button:focus:not(:focus-visible) {
 .cta {
   text-align: center;
   margin: 60px 0;
+}
+
+.app-store-soon {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border: 1px dashed var(--glass-border);
+  border-radius: 16px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur-amount));
+  -webkit-backdrop-filter: blur(var(--blur-amount));
+  box-shadow: 0 8px 32px var(--glass-shadow);
+}
+
+.app-store-soon img {
+  display: block;
+  height: 54px;
+  width: auto;
+}
+
+.coming-soon-label {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.cta-note {
+  margin-top: 12px;
+  color: var(--text-secondary);
 }
 
 .app-store-button {

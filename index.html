@@ -40,11 +40,6 @@
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD"
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "5",
-      "ratingCount": "1"
     }
   }
   </script>
@@ -61,7 +56,7 @@
 
   <nav class="site-nav" aria-label="Site navigation">
     <a href="/" class="nav-logo">GitPocket</a>
-    <button class="theme-toggle" aria-label="Toggle theme">
+    <button class="theme-toggle" aria-label="Theme: System" aria-live="polite">
       <span class="theme-icon" aria-hidden="true">🌓</span>
       <span class="theme-label">Theme</span>
     </button>
@@ -98,14 +93,16 @@
       <div class="feature reveal reveal-delay-3">
         <div class="feature-icon" aria-hidden="true">🔒</div>
         <h3>Secure & Private</h3>
-        <p>Your GitHub token is stored securely in iOS Keychain. No analytics, no tracking, no data sharing.</p>
+        <p>Your GitHub token is stored securely in iOS Keychain. No in-app analytics, no tracking, no data sharing.</p>
       </div>
     </section>
 
     <section class="cta reveal">
-      <a href="#" class="app-store-button">
-        <img src="/app-store-badge.svg" alt="Download on the App Store" height="54">
-      </a>
+      <div class="app-store-soon" role="status" aria-live="polite">
+        <img src="/app-store-badge.svg" alt="Download on the App Store (Coming soon)" height="54">
+        <span class="coming-soon-label">Coming soon</span>
+      </div>
+      <p class="cta-note">Launching soon on the App Store.</p>
     </section>
   </main>
 
