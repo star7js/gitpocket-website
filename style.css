@@ -107,8 +107,7 @@ body::after {
 
 header,
 main,
-footer,
-.site-nav {
+footer {
   position: relative;
   z-index: 1;
 }
@@ -169,6 +168,7 @@ button:focus:not(:focus-visible) {
   top: 0;
   left: 0;
   right: 0;
+  z-index: 20;
   display: flex;
   justify-content: space-between;
   align-items: center;
