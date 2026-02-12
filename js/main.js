@@ -64,12 +64,19 @@
   }
 
   // Listen for system theme changes (only affects system mode)
-  window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
+  const colorSchemeMedia = window.matchMedia('(prefers-color-scheme: light)');
+  const syncSystemTheme = () => {
     const preference = getPreferredTheme();
     if (preference === 'system') {
       applyTheme('system');
     }
-  });
+  };
+
+  if ('addEventListener' in colorSchemeMedia) {
+    colorSchemeMedia.addEventListener('change', syncSystemTheme);
+  } else if ('addListener' in colorSchemeMedia) {
+    colorSchemeMedia.addListener(syncSystemTheme);
+  }
 })();
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -98,69 +105,23 @@ if (!prefersReducedMotion && 'IntersectionObserver' in window) {
   });
 }
 
-if (!prefersReducedMotion) {
-  // Parallax effect for background orbs on scroll
-  let ticking = false;
-  const orbs = document.querySelectorAll('.orb');
+if (!prefersReducedMotion && window.matchMedia('(pointer: fine)').matches) {
+  let rafId = null;
+  let latestX = window.innerWidth / 2;
+  let latestY = window.innerHeight / 3;
 
-  function updateParallax() {
-    const scrolled = window.scrollY;
+  const applyPointerGlow = () => {
+    document.documentElement.style.setProperty('--cursor-x', `${latestX}px`);
+    document.documentElement.style.setProperty('--cursor-y', `${latestY}px`);
+    rafId = null;
+  };
 
-    orbs.forEach((orb, i) => {
-      const speed = 0.1 + (i * 0.05);
-      orb.style.transform = `translateY(${scrolled * speed}px)`;
-    });
+  document.addEventListener('pointermove', (event) => {
+    latestX = event.clientX;
+    latestY = event.clientY;
 
-    ticking = false;
-  }
-
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      window.requestAnimationFrame(updateParallax);
-      ticking = true;
+    if (!rafId) {
+      rafId = window.requestAnimationFrame(applyPointerGlow);
     }
-  });
-
-  // Cursor-reactive glow for orbs (desktop only)
-  if (window.matchMedia('(min-width: 768px)').matches) {
-    let mouseX = 0;
-    let mouseY = 0;
-    let currentX = 0;
-    let currentY = 0;
-
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-
-    function animateOrbs() {
-      // Smooth lerp animation
-      currentX += (mouseX - currentX) * 0.05;
-      currentY += (mouseY - currentY) * 0.05;
-
-      orbs.forEach((orb, i) => {
-        const rect = orb.getBoundingClientRect();
-        const orbCenterX = rect.left + rect.width / 2;
-        const orbCenterY = rect.top + rect.height / 2;
-
-        const deltaX = currentX - orbCenterX;
-        const deltaY = currentY - orbCenterY;
-
-        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-        const maxDistance = 500;
-
-        if (distance < maxDistance) {
-          const strength = (1 - distance / maxDistance) * 20;
-          const moveX = (deltaX / distance) * strength;
-          const moveY = (deltaY / distance) * strength;
-
-          orb.style.transform = `translate(${moveX}px, ${moveY}px)`;
-        }
-      });
-
-      requestAnimationFrame(animateOrbs);
-    }
-
-    animateOrbs();
-  }
+  }, { passive: true });
 }
